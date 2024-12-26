@@ -41,22 +41,22 @@ Log in to your Google Cloud account and set the active project using the Google 
 ### 3. **Enable Necessary APIs**
 Enable the required APIs for deployment:
 - **Artifact Registry API** for storing Docker images.
-    - Command - gcloud services enable run.googleapis.com
+  - Command - gcloud services enable run.googleapis.com
 - **Cloud Run API** for deploying the app.
-    - Command - gcloud services enable artifactregistry.googleapis.com
+  - Command - gcloud services enable artifactregistry.googleapis.com
 
 ### 4. **Build and Push the Docker Image**
 - Use Docker to build the container image for the Streamlit app.
 - Tag the image and push it to **Google Artifact Registry**.
-    - gcloud artifacts repositories create my-repo --repository-format=docker --location=us-central1
-    - docker tag streamlit_gcp us-central1-docker.pkg.dev/PROJECT-ID/my-repo/streamlit_gcp
-    - docker push us-central1-docker.pkg.dev/PROJECT-ID/my-repo/streamlit_gcp
+  - gcloud artifacts repositories create my-repo --repository-format=docker --location=us-central1
+  - docker tag streamlit_gcp us-central1-docker.pkg.dev/PROJECT-ID/my-repo/streamlit_gcp
+  - docker push us-central1-docker.pkg.dev/PROJECT-ID/my-repo/streamlit_gcp
 
 ### 5. **Deploy to Google Cloud Run**
 Deploy the containerized app to Google Cloud Run. Ensure the following:
 - The app listens on the `PORT` environment variable (Cloud Run defaults to `8080`).
 - Deploy the app with options like region, platform (managed), and allowing unauthenticated access.
-    - gcloud run deploy streamlit_gcp --image=us-central1-docker.pkg.dev/direct-hope-444506-u7/my-repo/streamlit_gcp --platform=managed --region=us-central1 --allow-unauthenticated
+    - gcloud run deploy streamlit_gcp --image=us-central1-docker.pkg.dev/PROJECT-ID/my-repo/streamlit_gcp --platform=managed --region=us-central1 --allow-unauthenticated
 - A http link will appear, copy and open that link to access the app.
 
 ---
